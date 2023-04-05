@@ -48,7 +48,7 @@ function Business() {
           <h1 className='headlines'>Business news</h1>
           <div className="news-card-container">
             {news.map((article, index) => (
-              //  article.image_url && 
+               article.image_url && 
               <div key={index} className="news-card1">
                 <Newscard article={article} index={index}/>
               </div>
