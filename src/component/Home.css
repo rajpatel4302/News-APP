@@ -1,0 +1,37 @@
+.headlines{
+    color: red;
+    display: flex;
+    margin-bottom: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px !important;
+}
+
+.home {
+    background-color:#264c72;;
+    color: #fff;
+    /* position: relative; */
+}
+
+.news-card1 {
+  -webkit-box-shadow: 2px 2px 15px 0px rgb(255, 255, 255);
+  -moz-box-shadow: 2px 2px 15px 0px rgb(255, 255, 255);
+  box-shadow: 2px 2px 15px 0px rgb(255, 255, 255);
+  width: 30%;
+  margin-bottom: 20px;
+  margin-right: 2%;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid black;
+  display: table-footer-group;
+  justify-content: center;
+}
+
+
+.roller {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
