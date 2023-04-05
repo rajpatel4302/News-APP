@@ -20,7 +20,6 @@ function Home() {
         setNextid(data.nextPage);
       });
   };
-  console.log(totalScoreLimit);
   
   useEffect(() => {
    fetch(`https://newsdata.io/api/1/news?apikey=pub_19960053e87236e53f91359b6fefc2f25f0c6&country=in`)
@@ -33,8 +32,6 @@ function Home() {
       });
   }, []);
   
-  console.log(nextid);
-
   return (
 <>
  
