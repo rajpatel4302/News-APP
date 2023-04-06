@@ -11,7 +11,7 @@ function Technology() {
   const[loading, setLoading]=useState(true)
 
   const fetchMoreListItems = async () => {
-    const nextPageUrl = `https://newsdata.io/api/1/news?apikey=pub_19960053e87236e53f91359b6fefc2f25f0c6&category=technology&country=in&language=en&page=${nextid}`;
+    const nextPageUrl = `https://newsdata.io/api/1/news?apikey=pub_2010276638dca29869e3f6c3833e7b6011d34&category=technology&country=in&language=en&page=${nextid}`;
     await fetch(nextPageUrl)
       .then((response) => response.json())
       .then((data) => {
@@ -22,7 +22,7 @@ function Technology() {
 
   useEffect(() => {
     fetch(
-      'https://newsdata.io/api/1/news?apikey=pub_19960053e87236e53f91359b6fefc2f25f0c6&category=technology&country=in&language=en'
+      'https://newsdata.io/api/1/news?apikey=pub_2010276638dca29869e3f6c3833e7b6011d34&category=technology&country=in&language=en'
     )
       .then((response) => response.json())
       .then((data) => {

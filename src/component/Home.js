@@ -12,7 +12,7 @@ function Home() {
   const[loading, setLoading]=useState(true)
 
   const fetchMoreListItems = async () => {
-    const nextPageUrl =`https://newsdata.io/api/1/news?apikey=pub_19960053e87236e53f91359b6fefc2f25f0c6&country=in&page=${nextid}`;
+    const nextPageUrl =`https://newsdata.io/api/1/news?apikey=pub_2010276638dca29869e3f6c3833e7b6011d34&country=in&page=${nextid}`;
     await fetch(nextPageUrl)
       .then(response => response.json())
       .then((data) => {
@@ -22,7 +22,7 @@ function Home() {
   };
   
   useEffect(() => {
-   fetch(`https://newsdata.io/api/1/news?apikey=pub_19960053e87236e53f91359b6fefc2f25f0c6&country=in`)
+   fetch(`https://newsdata.io/api/1/news?apikey=pub_2010276638dca29869e3f6c3833e7b6011d34&country=in`)
       .then(response => response.json())
       .then((data) => {
         setNews(data.results);
