@@ -26,6 +26,7 @@ function Home() {
 
   const fetchMoreListItems = async () => {
     const nextPageUrl = `https://newsdata.io/api/1/news?apikey=${apiKeys[0]}&country=in&page=${nextid}`;
+    // const nextPageUrl = `https://newsdata.io/api/1/news?apikey=${apiKeys[0]}&page=${nextid}`;
     await fetch(nextPageUrl)
       .then(response => response.json())
       .then((data) => {
@@ -35,6 +36,7 @@ function Home() {
       },
         (err) => {
           fetch(`https://newsdata.io/api/1/news?apikey=${apiKeys[1]}&country=in&page=${nextid}`)
+          // fetch(`https://newsdata.io/api/1/news?apikey=${apiKeys[1]}&page=${nextid}`)
             .then(response => response.json())
             .then((data) => {
               setNews((prevNews) => [...prevNews, ...data.results]);
