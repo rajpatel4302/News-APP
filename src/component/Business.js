@@ -15,8 +15,7 @@ function getRandomApiKey() {
 }
 
 
-
-function Business() {
+function Business({searchQuery}) {
   const [news, setNews] = useState([]);
   const [nextid, setNextid] = useState('');
   const [totalScoreLimit, setTotalScoreLimit] = useState(0);
@@ -74,6 +73,16 @@ function Business() {
 
   }, []);
 
+  const searchData = () => {
+    if (searchQuery) {
+      const searchAllData = news.filter((ele) => ele?.title?.toLowerCase()?.includes(searchQuery))
+      return searchAllData;
+    } else {
+      return news;
+    }
+  }
+  
+
   return (
     <>
       <InfiniteScroll
@@ -88,7 +97,7 @@ function Business() {
       </div>
           <h1 className='headlines'>Business news</h1>
           <div className="news-card-container">
-            {news.map((article, index) => (
+            {searchData().map((article, index) => (
                article.image_url && 
               <div key={index} className="news-card1">
                 <Newscard article={article} index={index}/>

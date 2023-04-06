@@ -17,16 +17,15 @@ function getRandomApiKey() {
   return apiKeys[randomIndex];
 }
 
-function Home() {
+function Home({searchQuery}) {
   const [news, setNews] = useState([]);
   const [nextid, setNextid] = useState('');
   const [totalScoreLimit, setTotalScoreLimit] = useState(0);
   const [loading, setLoading] = useState(true);
-  // const [apiKeys, setpiKeys] = ('pub_2010276638dca29869e3f6c3833e7b6011d34')
+
 
   const fetchMoreListItems = async () => {
     const nextPageUrl = `https://newsdata.io/api/1/news?apikey=${apiKeys[0]}&country=in&page=${nextid}`;
-    // const nextPageUrl = `https://newsdata.io/api/1/news?apikey=${apiKeys[0]}&page=${nextid}`;
     await fetch(nextPageUrl)
       .then(response => response.json())
       .then((data) => {
@@ -36,7 +35,6 @@ function Home() {
       },
         (err) => {
           fetch(`https://newsdata.io/api/1/news?apikey=${apiKeys[1]}&country=in&page=${nextid}`)
-          // fetch(`https://newsdata.io/api/1/news?apikey=${apiKeys[1]}&page=${nextid}`)
             .then(response => response.json())
             .then((data) => {
               setNews((prevNews) => [...prevNews, ...data.results]);
@@ -49,6 +47,17 @@ function Home() {
         });
   };
 
+  const searchData = () => {
+    if (searchQuery) {
+      const searchAllData = news.filter((ele) => ele?.title?.toLowerCase()?.includes(searchQuery))
+      return searchAllData;
+    } else {
+      return news;
+    }
+  }
+
+
+ 
   useEffect(() => {
     fetch(`https://newsdata.io/api/1/news?apikey=${apiKeys[0]}&country=in`)
       .then(response => response.json())
@@ -90,7 +99,7 @@ function Home() {
           <div className="roller">{loading && <Roller />}</div>
           <h1 className="headlines">Top Headlines</h1>
           <div className="news-card-container">
-            {news.map((article, index) => article.image_url && (
+            {searchData().map((article, index) => article.image_url && (
               <div key={index} className="news-card">
                 <Newscard article={article} index={index} />
               </div>

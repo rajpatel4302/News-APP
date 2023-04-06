@@ -15,7 +15,8 @@ function getRandomApiKey() {
 }
 
 
-function World() {
+
+function World({searchQuery}) {
   const [news, setNews] = useState([]);
   const [nextid, setNextid] = useState('');
   const [totalScoreLimit, setTotalScoreLimit] = useState(0);
@@ -74,6 +75,17 @@ function World() {
 
   }, []);
 
+
+  const searchData = () => {
+    if (searchQuery) {
+      const searchAllData = news.filter((ele) => ele?.title?.toLowerCase()?.includes(searchQuery))
+      return searchAllData;
+    } else {
+      return news;
+    }
+  }
+  
+
   return (
     <>
    
@@ -89,7 +101,7 @@ function World() {
         </div>
         <h1 className='headlines'>World News</h1>
         <div className="news-card-container">
-          {news?.map((article, index) => (
+          {searchData()?.map((article, index) => (
             article.image_url && 
             <div key={index} className="news-card">
               <Newscard article={article} index={index} />

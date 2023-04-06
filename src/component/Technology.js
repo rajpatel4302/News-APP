@@ -16,7 +16,8 @@ function getRandomApiKey() {
 }
 
 
-function Technology() {
+
+function Technology({searchQuery}) {
   const [news, setNews] = useState([]);
   const [nextid, setNextid] = useState('');
   const [totalScoreLimit, setTotalScoreLimit] = useState(0);
@@ -74,6 +75,16 @@ function Technology() {
 
   }, []);
 
+
+  const searchData = () => {
+    if (searchQuery) {
+      const searchAllData = news.filter((ele) => ele?.title?.toLowerCase()?.includes(searchQuery))
+      return searchAllData;
+    } else {
+      return news;
+    }
+  }
+  
   return (
     <>
     <InfiniteScroll
@@ -89,7 +100,7 @@ function Technology() {
       
         <h1 className="headlines">Technology News</h1>
         <div className="news-card-container">
-          {news?.map((article, index) => (
+          {searchData()?.map((article, index) => (
              article.image_url && 
             <div key={index} className="news-card1">
               <Newscard article={article} index={index} />
