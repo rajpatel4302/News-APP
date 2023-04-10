@@ -12,7 +12,6 @@ function Newscard({ article, index }) {
     link,
     pubDate,
     source_id,
-    content
   } = article;
 
 

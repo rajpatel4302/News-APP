@@ -30,10 +30,12 @@ function Navbar({searchQuery, handleSearchSubmit, handleSearchChange, selectedVa
         <button type="submit">Search</button>
       </form>
       <br></br>
+      <div className='dropdown'>
       <Dropdown 
         selectedValue={selectedValue}
         handleSelectChange={handleSelectChange}
       />
+      </div>
     </nav>
   );
 }

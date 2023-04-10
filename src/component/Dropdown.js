@@ -1,25 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const countries = [
-  { value: 'us', label: 'United States' },
-  { value: 'gb', label: 'United Kingdom' },
-  { value: 'ca', label: 'Canada' },
-  { value: 'au', label: 'Australia' },
-  { value: 'fr', label: 'France' },
-  { value: 'de', label: 'Germany' },
-  { value: 'jp', label: 'Japan' },
-  { value: 'in', label: 'India' },
-];
+function Dropdown({selectedValue, handleSelectChange}) {
+  const [countriesData, setCountriesData] = useState([]);
 
-function Dropdown({ selectedValue, handleSelectChange }) {
+  useEffect(() => {
+    const fetchCountriesData = async () => {
+      const response = await fetch('https://restcountries.com/v3.1/all');
+      const data = await response.json();
+      setCountriesData(data);
+    };
+    fetchCountriesData();
+  }, []);
 
   return (
     <>
     <select name="country" value={selectedValue} onChange={handleSelectChange}>
       <option value="">Select a country</option>
-      {countries.map((country) => (
-        <option key={country.value} value={country.value}>
-          {country.label}
+      {countriesData.map((country) => (
+        <option key={country.cca2} value={country.cca2.toLowerCase()}>
+          {country.name.common}
         </option>
       ))}
     </select>
