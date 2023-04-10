@@ -6,7 +6,7 @@ import './Entertainment.css'
 import { newsApi1 } from '../api/newsApi';
 
 const apiKeys = [
-  'pub_20109fc0d54b888f04ac9694a96f67514f609',
+  'pub_202840a5fddea13a623c65c551ae3759ab0fb',
   'pub_201082b94372999e55b28f01eda3ea68153a3',
 ];
 
