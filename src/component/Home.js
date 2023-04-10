@@ -118,7 +118,9 @@ function Home ({ searchQuery, selectedValue }) {
           <div className="roller">{loading && <Roller />}</div>
           <h1 className="headlines">Top Headlines</h1>
           <div className="news-card-container">
-            {searchData().map((article, index) => article.image_url && (
+            {searchData().map((article, index) => 
+            article.image_url && 
+            (
               <div key={index} className="news-card">
                 <Newscard article={article} index={index} />
               </div>
