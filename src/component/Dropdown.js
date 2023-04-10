@@ -1,22 +1,17 @@
 import React,{useState} from 'react';
 
 const countries = [
-  { value: 'USA', label: 'United States' },
-  { value: 'UK', label: 'United Kingdom' },
-  { value: 'Canada', label: 'Canada' },
-  { value: 'Australia', label: 'Australia' },
-  { value: 'France', label: 'France' },
-  { value: 'Germany', label: 'Germany' },
-  { value: 'Japan', label: 'Japan' },
-  { value: 'India', label: 'India' },
+  { value: 'us', label: 'United States' },
+  { value: 'gb', label: 'United Kingdom' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'au', label: 'Australia' },
+  { value: 'fr', label: 'France' },
+  { value: 'de', label: 'Germany' },
+  { value: 'jp', label: 'Japan' },
+  { value: 'in', label: 'India' },
 ];
 
-function Dropdown() {
-    const [selectedValue, setSelectedValue] = useState('');
-
-  function handleSelectChange(event) {
-    setSelectedValue(event.target.value);
-  }
+function Dropdown({ selectedValue, handleSelectChange }) {
 
   return (
     <>

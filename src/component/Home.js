@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Roller } from 'react-awesome-spinners';
 import Newscard from './Newscard';
 import './Home.css';
+import { newsApi1 } from '../api/newsApi';
 
 const apiKeys = [
   'pub_20109fc0d54b888f04ac9694a96f67514f609',
@@ -17,7 +18,7 @@ function getRandomApiKey() {
   return apiKeys[randomIndex];
 }
 
-function Home({searchQuery}) {
+function Home ({ searchQuery, selectedValue }) {
   const [news, setNews] = useState([]);
   const [nextid, setNextid] = useState('');
   const [totalScoreLimit, setTotalScoreLimit] = useState(0);
@@ -25,26 +26,35 @@ function Home({searchQuery}) {
 
 
   const fetchMoreListItems = async () => {
-    const nextPageUrl = `https://newsdata.io/api/1/news?apikey=${apiKeys[0]}&country=in&page=${nextid}`;
-    await fetch(nextPageUrl)
-      .then(response => response.json())
-      .then((data) => {
-        console.log(data, 'data');
-        setNews((prevNews) => [...prevNews, ...data.results]);
-        setNextid(data.nextPage);
-      },
-        (err) => {
-          fetch(`https://newsdata.io/api/1/news?apikey=${apiKeys[1]}&country=in&page=${nextid}`)
-            .then(response => response.json())
-            .then((data) => {
-              setNews((prevNews) => [...prevNews, ...data.results]);
-              setNextid(data.nextPage);
-            },
-              (err) => {
-                console.log(err);
-              }
-            )
-        });
+    try {
+      const payload = {
+        apiLastKeys: apiKeys[0],
+        _id: nextid,
+        countrySelect: selectedValue,
+        categorySelct: 'top',
+      };
+      const response = await newsApi1(payload);
+      if (response.status !== 200) {
+        console.log(response.errormessage);
+      } else {
+        setNews((prevNews) => [...prevNews, ...response?.data?.results]);
+        setNextid(response?.data?.nextPage);
+      }
+    } catch (error) {
+      const payload = {
+        apiLastKeys: apiKeys[1],
+        _id: nextid,
+        countrySelect: selectedValue,
+        categorySelct: 'top',
+      };
+      const response = await newsApi1(payload);
+      if (response.status !== 200) {
+        console.log(response.errormessage);
+      } else {
+        setNews((prevNews) => [...prevNews, ...response?.data?.results]);
+        setNextid(response?.data?.nextPage);
+      }
+    }
   };
 
   const searchData = () => {
@@ -59,33 +69,42 @@ function Home({searchQuery}) {
 
  
   useEffect(() => {
-    fetch(`https://newsdata.io/api/1/news?apikey=${apiKeys[0]}&country=in`)
-      .then(response => response.json())
-      .then((data) => {
-        console.log(data, 'data');
-        setNews(data.results);
-        setNextid(data.nextPage);
-        setTotalScoreLimit(data.count);
-        setLoading(false);
-      },
-        (err) => {
-          fetch(`https://newsdata.io/api/1/news?apikey=${apiKeys[1]}&country=in`)
-            .then(response => response.json())
-            .then((data) => {
-              console.log(data, 'data');
-              setNews(data.results);
-              setNextid(data.nextPage);
-              setTotalScoreLimit(data.count);
-              setLoading(false);
-            },
-              (err) => {
-                console.log(err);
-              }
-            )
+    (async () => {
+      try {
+        const payload = {
+          apiLastKeys: apiKeys[0],
+          _id: nextid,
+          countrySelect: selectedValue,
+          categorySelct: 'top',
+        };
+        const response = await newsApi1(payload);
+        if (response.status !== 200) {
+          console.log(response.errormessage);
+        } else {
+          setNews(response?.data?.results);
+          setNextid(response?.data?.nextPage);
+          setTotalScoreLimit(response?.data?.count);
+          setLoading(false);
         }
-      );
-
-  }, []);
+      } catch (error) {
+        const payload = {
+          apiLastKeys: apiKeys[1],
+          _id: nextid,
+          countrySelect: selectedValue,
+          categorySelct: 'top',
+        };
+        const response = await newsApi1(payload);
+        if (response.status !== 200) {
+          console.log(response.errormessage);
+        } else {
+          setNews(response?.data?.results);
+          setNextid(response?.data?.nextPage);
+          setTotalScoreLimit(response?.data?.count);
+          setLoading(false);
+        }
+      }
+    })()
+  }, [selectedValue]);
 
   return (
     <>

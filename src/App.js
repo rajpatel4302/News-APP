@@ -21,17 +21,32 @@ function App() {
     event.preventDefault();
     console.log(`Searching for...`);
   };
+
+  const [selectedValue, setSelectedValue] = useState('in');
+
+  function handleSelectChange(event) {
+    setSelectedValue(event.target.value);
+  }
+
+  console.log(selectedValue, 'selectedValue');
+
   return (
     <div>
-        <Navbar searchQuery={searchQuery} handleSearchSubmit={handleSearchSubmit} handleSearchChange={handleSearchChange} />
+        <Navbar
+          searchQuery={searchQuery}
+          handleSearchSubmit={handleSearchSubmit}
+          handleSearchChange={handleSearchChange}
+          selectedValue={selectedValue}
+          handleSelectChange={handleSelectChange}
+        />
         <Routes>
-        <Route exact path="/" element={<Home searchQuery={searchQuery} />} />
-        <Route path="/world" element={<World searchQuery={searchQuery} />} />
-        <Route path="/technology" element={<Technology searchQuery={searchQuery} />} />
-        <Route path="/business" element={<Business searchQuery={searchQuery} />} />
-        <Route path="/sports" element={<Sports searchQuery={searchQuery}/>} />
-        <Route path="/entertainment" element={<Entertainment searchQuery={searchQuery}/>}/>
-        <Route  path="/newsshow/" element={<Newsshow searchQuery={searchQuery}/>}/>
+        <Route exact path="/" element={<Home searchQuery={searchQuery} selectedValue={selectedValue} />} />
+        <Route path="/world" element={<World searchQuery={searchQuery} selectedValue={selectedValue} />} />
+        <Route path="/technology" element={<Technology searchQuery={searchQuery} selectedValue={selectedValue} />} />
+        <Route path="/business" element={<Business searchQuery={searchQuery} selectedValue={selectedValue} />} />
+        <Route path="/sports" element={<Sports searchQuery={searchQuery} selectedValue={selectedValue}/>} />
+        <Route path="/entertainment" element={<Entertainment searchQuery={searchQuery} selectedValue={selectedValue}/>}/>
+        <Route  path="/newsshow/" element={<Newsshow searchQuery={searchQuery} selectedValue={selectedValue}/>}/>
       </Routes>
     </div>
   );

@@ -26,7 +26,7 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown';
 
-function Navbar({searchQuery, handleSearchSubmit, handleSearchChange}) {
+function Navbar({searchQuery, handleSearchSubmit, handleSearchChange, selectedValue, handleSelectChange}) {
 
 
   return (
@@ -49,7 +49,11 @@ function Navbar({searchQuery, handleSearchSubmit, handleSearchChange}) {
         />
         <button type="submit">Search</button>
       </form>
-      <Dropdown/>
+      <br></br>
+      <Dropdown 
+        selectedValue={selectedValue}
+        handleSelectChange={handleSelectChange}
+      />
     </nav>
   );
 }
