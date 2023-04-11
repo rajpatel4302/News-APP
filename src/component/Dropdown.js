@@ -26,5 +26,4 @@ function Dropdown({selectedValue, handleSelectChange}) {
   );
 } 
 
-export default Dropdown;
-           
+export default Dropdown;         
