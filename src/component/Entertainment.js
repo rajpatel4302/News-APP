@@ -29,7 +29,7 @@ function Entertainment({searchQuery,selectedValue}) {
         apiLastKeys: apiKeys[0],
         _id: nextid,
         countrySelect: selectedValue,
-        categorySelct: 'entertainment',
+        // categorySelct: 'entertainment',
       };
       const response = await newsApi1(payload);
       if (response.status !== 200) {
@@ -43,7 +43,7 @@ function Entertainment({searchQuery,selectedValue}) {
         apiLastKeys: apiKeys[1],
         _id: nextid,
         countrySelect: selectedValue,
-        categorySelct: 'entertainment',
+        // categorySelct: 'entertainment',
       };
       const response = await newsApi1(payload);
       if (response.status !== 200) {
@@ -73,7 +73,7 @@ function Entertainment({searchQuery,selectedValue}) {
           apiLastKeys: apiKeys[0],
           _id: nextid,
           countrySelect: selectedValue,
-          categorySelct: 'entertainment',
+          // categorySelct: 'entertainment',
         };
         const response = await newsApi1(payload);
         if (response.status !== 200) {
@@ -89,7 +89,7 @@ function Entertainment({searchQuery,selectedValue}) {
           apiLastKeys: apiKeys[1],
           _id: nextid,
           countrySelect: selectedValue,
-          categorySelct: 'entertainment',
+          // categorySelct: 'entertainment',
         };
         const response = await newsApi1(payload);
         if (response.status !== 200) {

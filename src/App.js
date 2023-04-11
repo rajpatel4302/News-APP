@@ -11,6 +11,7 @@ import Newsshow from './component/Newsshow';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [countryData, setCountryData] = useState([])
 
 
   const handleSearchChange = (event) => {
@@ -22,13 +23,20 @@ function App() {
     console.log(`Searching for...`);
   };
 
-  const [selectedValue, setSelectedValue] = useState('in');
+  // const [selectedValue, setSelectedValue] = useState('in');
 
-  function handleSelectChange(event) {
-    setSelectedValue(event.target.value);
-  }
+  // function handleSelectChange(event) {
+  //   setSelectedValue(event.target.value);
+  // }
 
-  console.log(selectedValue, 'selectedValue');
+  // console.log(selectedValue, 'selectedValue');
+
+  const newArray = countryData?.filter((value, index, self) => {
+    return self.indexOf(value) == index;
+  })
+  console.log(newArray, 'newArray');
+
+  console.log(countryData, 'countryData');
 
   return (
     <div>
@@ -36,17 +44,17 @@ function App() {
           searchQuery={searchQuery}
           handleSearchSubmit={handleSearchSubmit}
           handleSearchChange={handleSearchChange}
-          selectedValue={selectedValue}
-          handleSelectChange={handleSelectChange}
+          // selectedValue={selectedValue}
+          // handleSelectChange={handleSelectChange}
         />
         <Routes>
-        <Route exact path="/" element={<Home searchQuery={searchQuery} selectedValue={selectedValue} />} />
-        <Route path="/world" element={<World searchQuery={searchQuery} selectedValue={selectedValue} />} />
-        <Route path="/technology" element={<Technology searchQuery={searchQuery} selectedValue={selectedValue} />} />
-        <Route path="/business" element={<Business searchQuery={searchQuery} selectedValue={selectedValue} />} />
-        <Route path="/sports" element={<Sports searchQuery={searchQuery} selectedValue={selectedValue}/>} />
-        <Route path="/entertainment" element={<Entertainment searchQuery={searchQuery} selectedValue={selectedValue}/>}/>
-        <Route  path="/newsshow/" element={<Newsshow searchQuery={searchQuery} selectedValue={selectedValue}/>}/>
+        <Route exact path="/" element={<Home searchQuery={searchQuery} />} />
+        <Route path="/world" element={<World searchQuery={searchQuery} setCountryData={setCountryData} />} />
+        <Route path="/technology" element={<Technology searchQuery={searchQuery}  />} />
+        <Route path="/business" element={<Business searchQuery={searchQuery}  />} />
+        <Route path="/sports" element={<Sports searchQuery={searchQuery} />} />
+        <Route path="/entertainment" element={<Entertainment searchQuery={searchQuery} />}/>
+        <Route  path="/newsshow/" element={<Newsshow searchQuery={searchQuery} />}/>
       </Routes>
     </div>
   );

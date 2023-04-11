@@ -28,7 +28,7 @@ function Technology({searchQuery,selectedValue}) {
       const payload = {
         apiLastKeys: apiKeys[0],
         _id: nextid,
-        countrySelect: selectedValue,
+        // countrySelect: selectedValue,
         categorySelct: 'technology',
       };
       const response = await newsApi1(payload);
@@ -42,7 +42,7 @@ function Technology({searchQuery,selectedValue}) {
       const payload = {
         apiLastKeys: apiKeys[1],
         _id: nextid,
-        countrySelect: selectedValue,
+        // countrySelect: selectedValue,
         categorySelct: 'technology',
       };
       const response = await newsApi1(payload);
@@ -72,7 +72,7 @@ function Technology({searchQuery,selectedValue}) {
         const payload = {
           apiLastKeys: apiKeys[0],
           _id: nextid,
-          countrySelect: selectedValue,
+          // countrySelect: selectedValue,
           categorySelct: 'technology',
         };
         const response = await newsApi1(payload);
@@ -88,7 +88,7 @@ function Technology({searchQuery,selectedValue}) {
         const payload = {
           apiLastKeys: apiKeys[1],
           _id: nextid,
-          countrySelect: selectedValue,
+          // countrySelect: selectedValue,
           categorySelct: 'technology',
         };
         const response = await newsApi1(payload);

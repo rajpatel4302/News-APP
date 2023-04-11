@@ -27,7 +27,7 @@ function Business({searchQuery,selectedValue}) {
       const payload = {
         apiLastKeys: apiKeys[0],
         _id: nextid,
-        countrySelect: selectedValue,
+        // countrySelect: selectedValue,
         categorySelct: 'business',
       };
       const response = await newsApi1(payload);
@@ -41,7 +41,7 @@ function Business({searchQuery,selectedValue}) {
       const payload = {
         apiLastKeys: apiKeys[1],
         _id: nextid,
-        countrySelect: selectedValue,
+        // countrySelect: selectedValue,
         categorySelct: 'business',
       };
       const response = await newsApi1(payload);
@@ -71,7 +71,7 @@ function Business({searchQuery,selectedValue}) {
         const payload = {
           apiLastKeys: apiKeys[0],
           _id: nextid,
-          countrySelect: selectedValue,
+          // countrySelect: selectedValue,
           categorySelct: 'business',
         };
         const response = await newsApi1(payload);
@@ -87,7 +87,7 @@ function Business({searchQuery,selectedValue}) {
         const payload = {
           apiLastKeys: apiKeys[1],
           _id: nextid,
-          countrySelect: selectedValue,
+          // countrySelect: selectedValue,
           categorySelct: 'business',
         };
         const response = await newsApi1(payload);

@@ -17,18 +17,18 @@ function getRandomApiKey() {
 
 
 
-function World({searchQuery,selectedValue}) {
+function World({ searchQuery, selectedValue, setCountryData }) {
   const [news, setNews] = useState([]);
   const [nextid, setNextid] = useState('');
   const [totalScoreLimit, setTotalScoreLimit] = useState(0);
-  const[loading, setLoading]=useState(true)
+  const [loading, setLoading] = useState(true)
 
   const fetchMoreListItems = async () => {
     try {
       const payload = {
         apiLastKeys: apiKeys[0],
         _id: nextid,
-        countrySelect: selectedValue,
+        // countrySelect: selectedValue,
         categorySelct: 'world',
       };
       const response = await newsApi1(payload);
@@ -37,12 +37,13 @@ function World({searchQuery,selectedValue}) {
       } else {
         setNews((prevNews) => [...prevNews, ...response?.data?.results]);
         setNextid(response?.data?.nextPage);
+        response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
       }
     } catch (error) {
       const payload = {
         apiLastKeys: apiKeys[1],
         _id: nextid,
-        countrySelect: selectedValue,
+        // countrySelect: selectedValue,
         categorySelct: 'world',
       };
       const response = await newsApi1(payload);
@@ -51,6 +52,7 @@ function World({searchQuery,selectedValue}) {
       } else {
         setNews((prevNews) => [...prevNews, ...response?.data?.results]);
         setNextid(response?.data?.nextPage);
+        response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
       }
     }
   };
@@ -65,14 +67,14 @@ function World({searchQuery,selectedValue}) {
   }
 
 
- 
+
   useEffect(() => {
     (async () => {
       try {
         const payload = {
           apiLastKeys: apiKeys[0],
           _id: nextid,
-          countrySelect: selectedValue,
+          // countrySelect: selectedValue,
           categorySelct: 'world',
         };
         const response = await newsApi1(payload);
@@ -83,12 +85,13 @@ function World({searchQuery,selectedValue}) {
           setNextid(response?.data?.nextPage);
           setTotalScoreLimit(response?.data?.count);
           setLoading(false);
+          response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
         }
       } catch (error) {
         const payload = {
           apiLastKeys: apiKeys[1],
           _id: nextid,
-          countrySelect: selectedValue,
+          // countrySelect: selectedValue,
           categorySelct: 'world',
         };
         const response = await newsApi1(payload);
@@ -99,6 +102,7 @@ function World({searchQuery,selectedValue}) {
           setNextid(response?.data?.nextPage);
           setTotalScoreLimit(response?.data?.count);
           setLoading(false);
+          response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
         }
       }
     })()
@@ -106,28 +110,28 @@ function World({searchQuery,selectedValue}) {
 
   return (
     <>
-   
-    <InfiniteScroll
-      dataLength={news.length}
-      next={() => fetchMoreListItems()}
-      className="infiniteScrollOverflow"
-      hasMore={nextid !== null}
-    >
-      <div className="home">
-        <div className='roller'>
-      {loading && <Roller />}
+
+      <InfiniteScroll
+        dataLength={news.length}
+        next={() => fetchMoreListItems()}
+        className="infiniteScrollOverflow"
+        hasMore={nextid !== null}
+      >
+        <div className="home">
+          <div className='roller'>
+            {loading && <Roller />}
+          </div>
+          <h1 className='headlines'>World News</h1>
+          <div className="news-card-container">
+            {searchData()?.map((article, index) => (
+              // article.image_url && 
+              <div key={index} className="news-card">
+                <Newscard article={article} index={index} />
+              </div>
+            ))}
+          </div>
         </div>
-        <h1 className='headlines'>World News</h1>
-        <div className="news-card-container">
-          {searchData()?.map((article, index) => (
-            article.image_url && 
-            <div key={index} className="news-card">
-              <Newscard article={article} index={index} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </InfiniteScroll>
+      </InfiniteScroll>
     </>
   );
 }
@@ -135,4 +139,3 @@ function World({searchQuery,selectedValue}) {
 export default World;
 
 
-  
