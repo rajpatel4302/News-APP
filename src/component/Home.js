@@ -8,10 +8,12 @@ import Newscard from './Newscard';
 import './Home.css';
 import { newsApi1 } from '../api/newsApi';
 
+
 const apiKeys = [
-  'pub_202840a5fddea13a623c65c551ae3759ab0fb',
+  'pub_2039135424e158384c1444067d2c28fe2c42e',
   'pub_201082b94372999e55b28f01eda3ea68153a3',
 ];
+
 
 function getRandomApiKey() {
   const randomIndex = Math.floor(Math.random() * apiKeys.length);
@@ -119,7 +121,7 @@ function Home ({ searchQuery, selectedValue }) {
           <h1 className="headlines">Top Headlines</h1>
           <div className="news-card-container">
             {searchData().map((article, index) => 
-            article.image_url && 
+            // article.image_url && 
             (
               <div key={index} className="news-card">
                 <Newscard article={article} index={index} />

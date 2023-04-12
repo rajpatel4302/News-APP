@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Newscard from './Newscard';
-import { Roller } from "react-awesome-spinners";
+import { Roller } from 'react-awesome-spinners';
 import './World.css';
 import { newsApi1 } from '../api/newsApi';
+import  Tab  from './Tab';
 
 const apiKeys = [
-  'pub_202840a5fddea13a623c65c551ae3759ab0fb',
+  'pub_2039135424e158384c1444067d2c28fe2c42e',
   'pub_201082b94372999e55b28f01eda3ea68153a3',
 ];
 
@@ -19,6 +20,7 @@ function getRandomApiKey() {
 
 function World({ searchQuery, selectedValue, setCountryData }) {
   const [news, setNews] = useState([]);
+  const [items, setItems] = useState([]);
   const [nextid, setNextid] = useState('');
   const [totalScoreLimit, setTotalScoreLimit] = useState(0);
   const [loading, setLoading] = useState(true)
@@ -29,7 +31,7 @@ function World({ searchQuery, selectedValue, setCountryData }) {
         apiLastKeys: apiKeys[0],
         _id: nextid,
         // countrySelect: selectedValue,
-        categorySelct: 'world',
+        // categorySelct: 'world',
       };
       const response = await newsApi1(payload);
       if (response.status !== 200) {
@@ -43,7 +45,6 @@ function World({ searchQuery, selectedValue, setCountryData }) {
       const payload = {
         apiLastKeys: apiKeys[1],
         _id: nextid,
-        // countrySelect: selectedValue,
         categorySelct: 'world',
       };
       const response = await newsApi1(payload);
@@ -57,16 +58,37 @@ function World({ searchQuery, selectedValue, setCountryData }) {
     }
   };
 
+  const FilteringData = () => {
+    const filterCountry = [];
+    if (selectedValue) {
+      news?.filter((data) => {
+        if (data?.country == selectedValue) {
+          filterCountry.push(data)
+          setItems(filterCountry)
+        }
+      })
+    } else {
+      setItems(news)
+    }
+  }
+
   const searchData = () => {
     if (searchQuery) {
-      const searchAllData = news.filter((ele) => ele?.title?.toLowerCase()?.includes(searchQuery))
+      const searchAllData = items.filter((ele) => ele?.title?.toLowerCase()?.includes(searchQuery))
       return searchAllData;
     } else {
-      return news;
+      return items;
     }
   }
 
 
+  useEffect(() => {
+    setItems(news);
+  }, [news]);
+
+  useEffect(() => {
+    FilteringData();
+  }, [selectedValue])
 
   useEffect(() => {
     (async () => {
@@ -74,7 +96,6 @@ function World({ searchQuery, selectedValue, setCountryData }) {
         const payload = {
           apiLastKeys: apiKeys[0],
           _id: nextid,
-          // countrySelect: selectedValue,
           categorySelct: 'world',
         };
         const response = await newsApi1(payload);
@@ -91,7 +112,6 @@ function World({ searchQuery, selectedValue, setCountryData }) {
         const payload = {
           apiLastKeys: apiKeys[1],
           _id: nextid,
-          // countrySelect: selectedValue,
           categorySelct: 'world',
         };
         const response = await newsApi1(payload);
@@ -106,7 +126,7 @@ function World({ searchQuery, selectedValue, setCountryData }) {
         }
       }
     })()
-  }, [selectedValue]);
+  }, []);
 
   return (
     <>
@@ -121,6 +141,7 @@ function World({ searchQuery, selectedValue, setCountryData }) {
           <div className='roller'>
             {loading && <Roller />}
           </div>
+          <Tab/>
           <h1 className='headlines'>World News</h1>
           <div className="news-card-container">
             {searchData()?.map((article, index) => (

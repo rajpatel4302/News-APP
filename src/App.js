@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {  Routes, Route} from 'react-router-dom';
 import Navbar from './component/Navbar';
 import Home from './component/Home';
@@ -11,8 +11,8 @@ import Newsshow from './component/Newsshow';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [countryData, setCountryData] = useState([])
-
+  const [countryData, setCountryData] = useState([]);
+  const [uniqueCountries, setUniqueCountries] = useState([]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -23,20 +23,18 @@ function App() {
     console.log(`Searching for...`);
   };
 
-  // const [selectedValue, setSelectedValue] = useState('in');
+  const [selectedValue, setSelectedValue] = useState('in');
 
-  // function handleSelectChange(event) {
-  //   setSelectedValue(event.target.value);
-  // }
+  function handleSelectChange(event) {
+    setSelectedValue(event.target.value);
+  }
 
-  // console.log(selectedValue, 'selectedValue');
-
-  const newArray = countryData?.filter((value, index, self) => {
-    return self.indexOf(value) == index;
-  })
-  console.log(newArray, 'newArray');
-
-  console.log(countryData, 'countryData');
+  useEffect(() => {
+    const newArray = countryData?.filter((value, index, self) => {
+      return self.indexOf(value) == index;
+    })
+    setUniqueCountries(newArray)
+  }, [countryData])
 
   return (
     <div>
@@ -45,11 +43,12 @@ function App() {
           handleSearchSubmit={handleSearchSubmit}
           handleSearchChange={handleSearchChange}
           // selectedValue={selectedValue}
-          // handleSelectChange={handleSelectChange}
+          handleSelectChange={handleSelectChange}
+          uniqueCountries={uniqueCountries}
         />
         <Routes>
         <Route exact path="/" element={<Home searchQuery={searchQuery} />} />
-        <Route path="/world" element={<World searchQuery={searchQuery} setCountryData={setCountryData} />} />
+        <Route path="/world" element={<World searchQuery={searchQuery} setCountryData={setCountryData} selectedValue={selectedValue} />} />
         <Route path="/technology" element={<Technology searchQuery={searchQuery}  />} />
         <Route path="/business" element={<Business searchQuery={searchQuery}  />} />
         <Route path="/sports" element={<Sports searchQuery={searchQuery} />} />
