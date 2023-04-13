@@ -9,10 +9,12 @@ import Sports from './component/Sports';
 import Entertainment from './component/Entertainment';
 import Newsshow from './component/Newsshow';
 
+
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [countryData, setCountryData] = useState([]);
   const [uniqueCountries, setUniqueCountries] = useState([]);
+
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -36,19 +38,19 @@ function App() {
     setUniqueCountries(newArray)
   }, [countryData])
 
+
   return (
     <div>
         <Navbar
           searchQuery={searchQuery}
           handleSearchSubmit={handleSearchSubmit}
           handleSearchChange={handleSearchChange}
-          // selectedValue={selectedValue}
           handleSelectChange={handleSelectChange}
           uniqueCountries={uniqueCountries}
         />
         <Routes>
         <Route exact path="/" element={<Home searchQuery={searchQuery} />} />
-        <Route path="/world" element={<World searchQuery={searchQuery} setCountryData={setCountryData} selectedValue={selectedValue} />} />
+        <Route path="/world" element={<World searchQuery={searchQuery} setCountryData={setCountryData} selectedValue={selectedValue}/>} />
         <Route path="/technology" element={<Technology searchQuery={searchQuery}  />} />
         <Route path="/business" element={<Business searchQuery={searchQuery}  />} />
         <Route path="/sports" element={<Sports searchQuery={searchQuery} />} />

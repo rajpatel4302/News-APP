@@ -4,10 +4,10 @@ import Newscard from './Newscard';
 import { Roller } from 'react-awesome-spinners';
 import './World.css';
 import { newsApi1 } from '../api/newsApi';
-import  Tab  from './Tab';
+import Option from './Option';
 
 const apiKeys = [
-  'pub_2039135424e158384c1444067d2c28fe2c42e',
+  'pub_204522fb018c826f457099522c3f81c78196c',
   'pub_201082b94372999e55b28f01eda3ea68153a3',
 ];
 
@@ -18,12 +18,21 @@ function getRandomApiKey() {
 
 
 
-function World({ searchQuery, selectedValue, setCountryData }) {
+function World({ searchQuery, selectedValue, setCountryData  }) {
   const [news, setNews] = useState([]);
   const [items, setItems] = useState([]);
   const [nextid, setNextid] = useState('');
   const [totalScoreLimit, setTotalScoreLimit] = useState(0);
   const [loading, setLoading] = useState(true)
+  const [uniqueCategory, setUniqueCategory] = useState([]);
+  const[categoryData, setCategoryData]=useState([]);
+  const [selectcategory, setSelectCategory]=useState('')
+
+
+  function handleSelectChange(event) {
+    setSelectCategory(event.target.value);
+  }
+
 
   const fetchMoreListItems = async () => {
     try {
@@ -40,6 +49,7 @@ function World({ searchQuery, selectedValue, setCountryData }) {
         setNews((prevNews) => [...prevNews, ...response?.data?.results]);
         setNextid(response?.data?.nextPage);
         response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
+        response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
       }
     } catch (error) {
       const payload = {
@@ -54,9 +64,17 @@ function World({ searchQuery, selectedValue, setCountryData }) {
         setNews((prevNews) => [...prevNews, ...response?.data?.results]);
         setNextid(response?.data?.nextPage);
         response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
+        response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
       }
     }
   };
+
+  useEffect(() => {
+    const newArray = categoryData?.filter((value, index, self) => {
+      return self.indexOf(value) == index;
+    })
+    setUniqueCategory(newArray)
+  }, [categoryData])
 
   const FilteringData = () => {
     const filterCountry = [];
@@ -107,6 +125,7 @@ function World({ searchQuery, selectedValue, setCountryData }) {
           setTotalScoreLimit(response?.data?.count);
           setLoading(false);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
+          response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
         }
       } catch (error) {
         const payload = {
@@ -123,10 +142,12 @@ function World({ searchQuery, selectedValue, setCountryData }) {
           setTotalScoreLimit(response?.data?.count);
           setLoading(false);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
+          response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
         }
       }
     })()
   }, []);
+
 
   return (
     <>
@@ -141,8 +162,12 @@ function World({ searchQuery, selectedValue, setCountryData }) {
           <div className='roller'>
             {loading && <Roller />}
           </div>
-          <Tab/>
           <h1 className='headlines'>World News</h1>
+          <Option
+            uniqueCategory={uniqueCategory}
+            selectcategory={selectcategory}
+            handleSelectChange={handleSelectChange}
+        />
           <div className="news-card-container">
             {searchData()?.map((article, index) => (
               // article.image_url && 
