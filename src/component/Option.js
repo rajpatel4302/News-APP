@@ -15,10 +15,6 @@ function option({ uniqueCategory,handleSelectChange,selectcategory}) {
           </li>
         ))}
       </ul>
-      {/* <Dropdownn 
-      selectedValue={selectedValue}
-      uniqueCountries={uniqueCountries}
-      /> */}
     </nav>
   )
 }
