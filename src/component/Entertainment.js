@@ -6,8 +6,8 @@ import './Entertainment.css'
 import { newsApi1 } from '../api/newsApi';
 
 const apiKeys = [
-  'pub_204522fb018c826f457099522c3f81c78196c',
-  'pub_201082b94372999e55b28f01eda3ea68153a3',
+  'pub_20497d30f83694e65c512f122f0f0938d27b5',
+  'pub_204878ab1b4c2beb1aa314fb1e243bafae80c',
 ];
 
 function getRandomApiKey() {
@@ -29,7 +29,6 @@ function Entertainment({searchQuery,selectedValue}) {
         apiLastKeys: apiKeys[0],
         _id: nextid,
         countrySelect: selectedValue,
-        // categorySelct: 'entertainment',
       };
       const response = await newsApi1(payload);
       if (response.status !== 200) {
@@ -43,7 +42,6 @@ function Entertainment({searchQuery,selectedValue}) {
         apiLastKeys: apiKeys[1],
         _id: nextid,
         countrySelect: selectedValue,
-        // categorySelct: 'entertainment',
       };
       const response = await newsApi1(payload);
       if (response.status !== 200) {
@@ -73,7 +71,6 @@ function Entertainment({searchQuery,selectedValue}) {
           apiLastKeys: apiKeys[0],
           _id: nextid,
           countrySelect: selectedValue,
-          // categorySelct: 'entertainment',
         };
         const response = await newsApi1(payload);
         if (response.status !== 200) {
@@ -89,7 +86,6 @@ function Entertainment({searchQuery,selectedValue}) {
           apiLastKeys: apiKeys[1],
           _id: nextid,
           countrySelect: selectedValue,
-          // categorySelct: 'entertainment',
         };
         const response = await newsApi1(payload);
         if (response.status !== 200) {

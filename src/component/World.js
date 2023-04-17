@@ -7,18 +7,14 @@ import { newsApi1 } from '../api/newsApi';
 import Option from './Option';
 
 const apiKeys = [
-  'pub_204522fb018c826f457099522c3f81c78196c',
-  'pub_201082b94372999e55b28f01eda3ea68153a3',
+  'pub_20497d30f83694e65c512f122f0f0938d27b5',
+  'pub_204878ab1b4c2beb1aa314fb1e243bafae80c',
 ];
 
-function getRandomApiKey() {
-  const randomIndex = Math.floor(Math.random() * apiKeys.length);
-  return apiKeys[randomIndex];
-}
 
 
 
-function World({ searchQuery, selectedValue, setCountryData  }) {
+function World({searchQuery, selectedValue, setCountryData}) {
   const [news, setNews] = useState([]);
   const [items, setItems] = useState([]);
   const [nextid, setNextid] = useState('');
@@ -30,7 +26,7 @@ function World({ searchQuery, selectedValue, setCountryData  }) {
 
 
   function handleSelectChange(event) {
-    setSelectCategory(event.target.value);
+    setSelectCategory(event);
   }
 
 
@@ -39,8 +35,6 @@ function World({ searchQuery, selectedValue, setCountryData  }) {
       const payload = {
         apiLastKeys: apiKeys[0],
         _id: nextid,
-        // countrySelect: selectedValue,
-        // categorySelct: 'world',
       };
       const response = await newsApi1(payload);
       if (response.status !== 200) {
@@ -55,7 +49,6 @@ function World({ searchQuery, selectedValue, setCountryData  }) {
       const payload = {
         apiLastKeys: apiKeys[1],
         _id: nextid,
-        categorySelct: 'world',
       };
       const response = await newsApi1(payload);
       if (response.status !== 200) {
@@ -69,6 +62,8 @@ function World({ searchQuery, selectedValue, setCountryData  }) {
     }
   };
 
+
+
   useEffect(() => {
     const newArray = categoryData?.filter((value, index, self) => {
       return self.indexOf(value) == index;
@@ -81,6 +76,20 @@ function World({ searchQuery, selectedValue, setCountryData  }) {
     if (selectedValue) {
       news?.filter((data) => {
         if (data?.country == selectedValue) {
+          filterCountry.push(data)
+          setItems(filterCountry)
+        }
+      })
+    } else {
+      setItems(news)
+    }
+  }
+
+  const FilteringCatagoriesData = () => {
+    const filterCountry = [];
+    if (selectcategory) {
+      news?.filter((data) => {
+        if (data?.category == selectcategory) {
           filterCountry.push(data)
           setItems(filterCountry)
         }
@@ -107,6 +116,12 @@ function World({ searchQuery, selectedValue, setCountryData  }) {
   useEffect(() => {
     FilteringData();
   }, [selectedValue])
+
+  useEffect(() => {
+    FilteringCatagoriesData()
+  }, [selectcategory])
+
+
 
   useEffect(() => {
     (async () => {
@@ -147,7 +162,6 @@ function World({ searchQuery, selectedValue, setCountryData  }) {
       }
     })()
   }, []);
-
 
   return (
     <>

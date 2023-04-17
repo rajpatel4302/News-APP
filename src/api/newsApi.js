@@ -10,4 +10,3 @@ export const newsApi1 = async (payload) => {
         return error;
     }
 };
-
