@@ -14,7 +14,7 @@ const apiKeys = [
 
 
 
-function World({ searchQuery, selectedValue, setCountryData }) {
+function World({ searchQuery, selectedValue, setCountryData }){
   const [news, setNews] = useState([]);
   const [items, setItems] = useState([]);
   const [nextid, setNextid] = useState('');
@@ -28,8 +28,6 @@ function World({ searchQuery, selectedValue, setCountryData }) {
   function handleSelectChange(event) {
     setSelectCategory(event);
   }
-
-  console.log(selectcategory, uniqueCategory);
 
 
   const fetchMoreListItems = async () => {
@@ -90,7 +88,6 @@ function World({ searchQuery, selectedValue, setCountryData }) {
   }
 
   const FilteringCatagoriesData = () => {
-    console.log(selectcategory, 'selectcategory');
     const filterCountry = [];
     if (selectcategory) {
       news?.filter((data) => {
