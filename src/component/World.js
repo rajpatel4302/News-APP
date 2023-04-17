@@ -14,50 +14,54 @@ const apiKeys = [
 
 
 
-function World({searchQuery, selectedValue, setCountryData}) {
+function World({ searchQuery, selectedValue, setCountryData }) {
   const [news, setNews] = useState([]);
   const [items, setItems] = useState([]);
   const [nextid, setNextid] = useState('');
   const [totalScoreLimit, setTotalScoreLimit] = useState(0);
   const [loading, setLoading] = useState(true)
   const [uniqueCategory, setUniqueCategory] = useState([]);
-  const[categoryData, setCategoryData]=useState([]);
-  const [selectcategory, setSelectCategory]=useState('')
+  const [categoryData, setCategoryData] = useState([]);
+  const [selectcategory, setSelectCategory] = useState('')
 
 
   function handleSelectChange(event) {
     setSelectCategory(event);
   }
 
+  console.log(selectcategory, uniqueCategory);
+
 
   const fetchMoreListItems = async () => {
-    try {
-      const payload = {
-        apiLastKeys: apiKeys[0],
-        _id: nextid,
-      };
-      const response = await newsApi1(payload);
-      if (response.status !== 200) {
-        console.log(response.errormessage);
-      } else {
-        setNews((prevNews) => [...prevNews, ...response?.data?.results]);
-        setNextid(response?.data?.nextPage);
-        response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
-        response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
-      }
-    } catch (error) {
-      const payload = {
-        apiLastKeys: apiKeys[1],
-        _id: nextid,
-      };
-      const response = await newsApi1(payload);
-      if (response.status !== 200) {
-        console.log(response.errormessage);
-      } else {
-        setNews((prevNews) => [...prevNews, ...response?.data?.results]);
-        setNextid(response?.data?.nextPage);
-        response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
-        response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
+    if (!selectcategory) {
+      try {
+        const payload = {
+          apiLastKeys: apiKeys[0],
+          _id: nextid,
+        };
+        const response = await newsApi1(payload);
+        if (response.status !== 200) {
+          console.log(response.errormessage);
+        } else {
+          setNews((prevNews) => [...prevNews, ...response?.data?.results]);
+          setNextid(response?.data?.nextPage);
+          response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
+          response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
+        }
+      } catch (error) {
+        const payload = {
+          apiLastKeys: apiKeys[1],
+          _id: nextid,
+        };
+        const response = await newsApi1(payload);
+        if (response.status !== 200) {
+          console.log(response.errormessage);
+        } else {
+          setNews((prevNews) => [...prevNews, ...response?.data?.results]);
+          setNextid(response?.data?.nextPage);
+          response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
+          response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
+        }
       }
     }
   };
@@ -86,6 +90,7 @@ function World({searchQuery, selectedValue, setCountryData}) {
   }
 
   const FilteringCatagoriesData = () => {
+    console.log(selectcategory, 'selectcategory');
     const filterCountry = [];
     if (selectcategory) {
       news?.filter((data) => {
@@ -181,7 +186,7 @@ function World({searchQuery, selectedValue, setCountryData}) {
             uniqueCategory={uniqueCategory}
             selectcategory={selectcategory}
             handleSelectChange={handleSelectChange}
-        />
+          />
           <div className="news-card-container">
             {searchData()?.map((article, index) => (
               // article.image_url && 

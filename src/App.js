@@ -25,7 +25,7 @@ function App() {
     console.log(`Searching for...`);
   };
 
-  const [selectedValue, setSelectedValue] = useState('in');
+  const [selectedValue, setSelectedValue] = useState();
 
   function handleSelectChange(event) {
     setSelectedValue(event.target.value);
@@ -50,7 +50,7 @@ function App() {
         />
         <Routes>
         <Route exact path="/" element={<Home searchQuery={searchQuery} />} />
-        <Route path="/world" element={<World searchQuery={searchQuery} setCountryData={setCountryData} selectedValue={selectedValue}/>} />
+        <Route path="/world" element={<World searchQuery={searchQuery} setCountryData={setCountryData} selectedValue={selectedValue} />} />
         <Route path="/technology" element={<Technology searchQuery={searchQuery}  />} />
         <Route path="/business" element={<Business searchQuery={searchQuery}  />} />
         <Route path="/sports" element={<Sports searchQuery={searchQuery} />} />
