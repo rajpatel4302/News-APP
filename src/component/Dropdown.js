@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Dropdown({selectedValue, handleSelectChange, uniqueCountries}) {
-
   return (
     <>
   <select name="country" value={selectedValue} onChange={handleSelectChange}>
@@ -15,11 +14,4 @@ function Dropdown({selectedValue, handleSelectChange, uniqueCountries}) {
     </>
   );
 } 
-
-export default Dropdown;         
-
-
-
-
-
-
+export default Dropdown;

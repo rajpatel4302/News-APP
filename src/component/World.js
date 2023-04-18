@@ -14,7 +14,7 @@ const apiKeys = [
 
 
 
-function World({ searchQuery, selectedValue, setCountryData }){
+function World({ searchQuery, selectedValue, setCountryData, setLangauge, langaugevalue}){
   const [news, setNews] = useState([]);
   const [items, setItems] = useState([]);
   const [nextid, setNextid] = useState('');
@@ -46,6 +46,7 @@ function World({ searchQuery, selectedValue, setCountryData }){
           setNextid(response?.data?.nextPage);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
+          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, ...item?.language])))
         }
       } catch (error) {
         const payload = {
@@ -60,6 +61,7 @@ function World({ searchQuery, selectedValue, setCountryData }){
           setNextid(response?.data?.nextPage);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
+          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, ...item?.language])))
         }
       }
     }
@@ -88,6 +90,7 @@ function World({ searchQuery, selectedValue, setCountryData }){
     }
   }
 
+
   const FilteringCatagoriesData = () => {
     const filterCountry = [];
     if (selectcategory) {
@@ -95,6 +98,21 @@ function World({ searchQuery, selectedValue, setCountryData }){
         if (data?.category == selectcategory) {
           filterCountry.push(data)
           setItems(filterCountry)
+        }
+      })
+    } else {
+      setItems(news)
+    }
+  }
+
+
+  const FilteringlanguageData = () => {
+    const filterlanguage = [];
+    if (langaugevalue) {
+      news?.filter((data) => {
+        if (data?.language == langaugevalue) {
+          filterlanguage.push(data)
+          setItems(filterlanguage)
         }
       })
     } else {
@@ -117,7 +135,7 @@ function World({ searchQuery, selectedValue, setCountryData }){
   }, [news]);
 
   useEffect(() => {
-    FilteringData();
+    FilteringData();  
   }, [selectedValue])
 
   useEffect(() => {
@@ -125,7 +143,13 @@ function World({ searchQuery, selectedValue, setCountryData }){
   }, [selectcategory])
 
 
+  useEffect(() => {
+    FilteringlanguageData();
+  }, [langaugevalue])
 
+
+
+   
   useEffect(() => {
     (async () => {
       try {
@@ -144,6 +168,7 @@ function World({ searchQuery, selectedValue, setCountryData }){
           setLoading(false);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
+          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, ...item?.language])))
         }
       } catch (error) {
         const payload = {
@@ -161,6 +186,7 @@ function World({ searchQuery, selectedValue, setCountryData }){
           setLoading(false);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
+          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, ...item?.language])))
         }
       }
     })()

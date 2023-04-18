@@ -5,8 +5,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown';
+import Langauge from './Language';
 
-function Navbar({searchQuery, handleSearchSubmit, handleSearchChange, selectedValue, handleSelectChange, uniqueCountries}) {
+function Navbar({searchQuery, handleSearchSubmit, handleSearchChange, selectedValue, handleSelectChange, uniqueCountries, handleChange, uniquelangauge,langaugevalue}) {
 
 
   return (
@@ -25,7 +26,7 @@ function Navbar({searchQuery, handleSearchSubmit, handleSearchChange, selectedVa
           type="text"
           placeholder="Search..."
           value={searchQuery}
-          onChange={handleSearchChange}
+          onChange={handleSearchChange} 
         />
         <button type="submit">Search</button>
       </form>
@@ -35,6 +36,11 @@ function Navbar({searchQuery, handleSearchSubmit, handleSearchChange, selectedVa
         selectedValue={selectedValue}
         handleSelectChange={handleSelectChange}
         uniqueCountries={uniqueCountries}
+      />
+      <Langauge
+      langaugevalue={langaugevalue}
+      handleChange={handleChange}
+      uniquelangauge={uniquelangauge}
       />
       </div>
     </nav>
