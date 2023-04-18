@@ -7,8 +7,8 @@ import { newsApi1 } from '../api/newsApi';
 
 
 const apiKeys = [
-  'pub_20497d30f83694e65c512f122f0f0938d27b5',
-  'pub_204878ab1b4c2beb1aa314fb1e243bafae80c',
+  'pub_20629fe3111aeef5610d170d9612f4d823ef6',
+  'pub_2063085584c2888ade3fc6ecfc4301f729b23',
 ];
 
 
