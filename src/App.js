@@ -17,6 +17,10 @@ function App() {
   const [langauge, setLangauge]=useState([]);
   const [uniquelangauge,setUniqueLangauge]=useState([]);
 
+
+// console.log(langauge,'langauge');
+
+
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -34,14 +38,14 @@ function App() {
   }
 
 //ola lang.....mate che 
-  const [langaugevalue, setLangaugeValue] = useState();
+  const [langaugevalue, setLangaugeValue] = useState('');
 
   function handleChange(event) {
     setLangaugeValue(event.target.value);
   }
 
 
-// console.log(langauge, 'langauge');
+console.log(langaugevalue, 'langaugevalue');
 
 useEffect(() => {
     const newArray = countryData?.filter((value, index, self) => {

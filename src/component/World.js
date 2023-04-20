@@ -78,6 +78,7 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
 
   const FilteringData = () => {
     const filterCountry = [];
+    console.log(filterCountry,'filterCountry');
     if (selectedValue) {
       news?.filter((data) => {
         if (data?.country == selectedValue) {
@@ -108,6 +109,7 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
 
   const FilteringlanguageData = () => {
     const filterlanguage = [];
+    console.log(filterlanguage, 'filterlanguage');
     if (langaugevalue) {
       news?.filter((data) => {
         if (data?.language == langaugevalue) {
@@ -119,6 +121,10 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
       setItems(news)
     }
   }
+
+  
+
+
 
   const searchData = () => {
     if (searchQuery) {
