@@ -1,9 +1,6 @@
 import React from 'react';
 
 function Langauge({langaugevalue, handleChange, uniquelangauge}) {
-// console.log(uniquelangauge,'uniquelangauge');
-
-
   return (
  <>
  <select name="language" value={langaugevalue} onChange={handleChange}>
@@ -18,6 +15,6 @@ function Langauge({langaugevalue, handleChange, uniquelangauge}) {
   );
 } 
 
-export default Langauge;        
+export default Langauge;
  
 

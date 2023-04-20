@@ -7,14 +7,14 @@ import { newsApi1 } from '../api/newsApi';
 import Option from './Option';
 
 const apiKeys = [
-  'pub_20629fe3111aeef5610d170d9612f4d823ef6',
-  'pub_2063085584c2888ade3fc6ecfc4301f729b23',
+  'pub_207763b675a0e35aa6522c2e87d715d3e7c87',
+  'pub_207770bea17156c0b48e8c9e00d0092d27b2f',
 ];
 
 
 
 
-function World({ searchQuery, selectedValue, setCountryData, setLangauge, langaugevalue}){
+function World({ searchQuery, selectedValue, setCountryData, setLangauge, langaugevalue }) {
   const [news, setNews] = useState([]);
   const [items, setItems] = useState([]);
   const [nextid, setNextid] = useState('');
@@ -29,15 +29,15 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
     setSelectCategory(event);
   }
 
-  // console.log(categoryData, 'categoryData'); 
 
-  const fetchMoreListItems = async () => {
+const fetchMoreListItems = async () => {
     if (!selectcategory) {
       try {
         const payload = {
           apiLastKeys: apiKeys[0],
           _id: nextid,
         };
+        console.log(payload,'payload');                         
         const response = await newsApi1(payload);
         if (response.status !== 200) {
           console.log(response.errormessage);
@@ -46,7 +46,7 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
           setNextid(response?.data?.nextPage);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
-          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, ...item?.language])))
+          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, item?.language])))
         }
       } catch (error) {
         const payload = {
@@ -54,14 +54,14 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
           _id: nextid,
         };
         const response = await newsApi1(payload);
-        if (response.status !== 200) {
+        if (response.status !== 200){
           console.log(response.errormessage);
-        } else {
+        }else{
           setNews((prevNews) => [...prevNews, ...response?.data?.results]);
           setNextid(response?.data?.nextPage);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
-          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, ...item?.language])))
+          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, item?.language])))
         }
       }
     }
@@ -78,7 +78,6 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
 
   const FilteringData = () => {
     const filterCountry = [];
-    console.log(filterCountry,'filterCountry');
     if (selectedValue) {
       news?.filter((data) => {
         if (data?.country == selectedValue) {
@@ -92,37 +91,65 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
   }
 
 
+  // const FilteringCatagoriesData = () => {
+  //   const filterCountry = [];
+  //   if (selectcategory) {
+  //     news?.filter((data) => {
+  //       if (data?.category == selectcategory) {
+  //         filterCountry.push(data)
+  //         setItems(filterCountry)
+  //       }
+  //     })
+  //   } else {
+  //     setItems(news)
+  //   }
+  // }
+
+
   const FilteringCatagoriesData = () => {
-    const filterCountry = [];
+    const filteredData = [];
     if (selectcategory) {
       news?.filter((data) => {
         if (data?.category == selectcategory) {
-          filterCountry.push(data)
-          setItems(filterCountry)
+          filteredData.push(data);
         }
-      })
+      });
+      setItems(filteredData);
     } else {
-      setItems(news)
+      setItems(news);
     }
-  }
+  };
+  
 
+
+
+  // const FilteringlanguageData = () => {
+  //   const filterlanguage = [];
+  //   if (langaugevalue) {
+  //     news?.filter((data) => {
+  //       if (data?.language == langaugevalue) {
+  //         filterlanguage.push(data)
+  //         setItems(filterlanguage)
+  //       }
+  //     })
+  //   } else {
+  //     setItems(news)
+  //   }
+  // }
 
   const FilteringlanguageData = () => {
-    const filterlanguage = [];
-    console.log(filterlanguage, 'filterlanguage');
+    const filteredData = [];
     if (langaugevalue) {
       news?.filter((data) => {
         if (data?.language == langaugevalue) {
-          filterlanguage.push(data)
-          setItems(filterlanguage)
+          filteredData.push(data);
         }
-      })
+      });
+      return filteredData;
     } else {
-      setItems(news)
+      return news;
     }
-  }
-
-  
+  };
 
 
 
@@ -141,7 +168,7 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
   }, [news]);
 
   useEffect(() => {
-    FilteringData();  
+    FilteringData();
   }, [selectedValue])
 
   useEffect(() => {
@@ -149,13 +176,16 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
   }, [selectcategory])
 
 
+  // useEffect(() => {
+  //   FilteringlanguageData();
+  // }, [langaugevalue])
+
   useEffect(() => {
-    FilteringlanguageData();
-  }, [langaugevalue])
+    const filteredData = FilteringlanguageData();
+    setItems(filteredData);
+  }, [langaugevalue]);
 
 
-
-   
   useEffect(() => {
     (async () => {
       try {
@@ -174,7 +204,7 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
           setLoading(false);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
-          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, ...item?.language])))
+          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, item?.language])))
         }
       } catch (error) {
         const payload = {
@@ -192,7 +222,7 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
           setLoading(false);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
-          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, ...item?.language])))
+          response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, item?.language])))
         }
       }
     })()
@@ -200,7 +230,6 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
 
   return (
     <>
-
       <InfiniteScroll
         dataLength={news.length}
         next={() => fetchMoreListItems()}
@@ -230,7 +259,6 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
     </>
   );
 }
-
 export default World;
 
 

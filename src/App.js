@@ -18,7 +18,7 @@ function App() {
   const [uniquelangauge,setUniqueLangauge]=useState([]);
 
 
-// console.log(langauge,'langauge');
+ 
 
 
   const handleSearchChange = (event) => {
@@ -30,22 +30,19 @@ function App() {
   };
 
 
-//ola country mate che
+
   const [selectedValue, setSelectedValue] = useState();
 
   function handleSelectChange(event) {
     setSelectedValue(event.target.value);
   }
 
-//ola lang.....mate che 
   const [langaugevalue, setLangaugeValue] = useState('');
 
   function handleChange(event) {
     setLangaugeValue(event.target.value);
   }
 
-
-console.log(langaugevalue, 'langaugevalue');
 
 useEffect(() => {
     const newArray = countryData?.filter((value, index, self) => {

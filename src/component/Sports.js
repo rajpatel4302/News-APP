@@ -7,9 +7,10 @@ import { newsApi1 } from '../api/newsApi';
 
 
 const apiKeys = [
-  'pub_20629fe3111aeef5610d170d9612f4d823ef6',
-  'pub_2063085584c2888ade3fc6ecfc4301f729b23',
+  'pub_207763b675a0e35aa6522c2e87d715d3e7c87',
+  'pub_207770bea17156c0b48e8c9e00d0092d27b2f',
 ];
+
 
 
 function getRandomApiKey() {
