@@ -23,25 +23,27 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
   const [uniqueCategory, setUniqueCategory] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [selectcategory, setSelectCategory] = useState('')
-
+  // const [isLoading, setIsLoading] = useState(false);
 
   function handleSelectChange(event) {
     setSelectCategory(event);
   }
 
-
-const fetchMoreListItems = async () => {
-    if (!selectcategory) {
-      try {
-        const payload = {
-          apiLastKeys: apiKeys[0],
-          _id: nextid,
-        };
-        console.log(payload,'payload');                         
+const fetchMoreListItems = async () => 
+{
+  if (!selectcategory) {
+    try {
+      const payload = {
+        apiLastKeys: apiKeys[0],
+        _id: nextid,
+      };
+        console.log(payload, 'payload');
         const response = await newsApi1(payload);
-        if (response.status !== 200) {
+        if (response.status !== 200) 
+      {
           console.log(response.errormessage);
-        } else {
+        } else
+      {
           setNews((prevNews) => [...prevNews, ...response?.data?.results]);
           setNextid(response?.data?.nextPage);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
@@ -54,21 +56,23 @@ const fetchMoreListItems = async () => {
           _id: nextid,
         };
         const response = await newsApi1(payload);
-        if (response.status !== 200){
+        if (response.status !== 200) {
           console.log(response.errormessage);
-        }else{
+        } 
+      {
           setNews((prevNews) => [...prevNews, ...response?.data?.results]);
           setNextid(response?.data?.nextPage);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
           response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, item?.language])))
-        }
       }
     }
-  };
+  }
+};
 
 
 
+  
   useEffect(() => {
     const newArray = categoryData?.filter((value, index, self) => {
       return self.indexOf(value) == index;
@@ -76,8 +80,12 @@ const fetchMoreListItems = async () => {
     setUniqueCategory(newArray)
   }, [categoryData])
 
+
+
+
   const FilteringData = () => {
     const filterCountry = [];
+    console.log(filterCountry, 'filterCountry');
     if (selectedValue) {
       news?.filter((data) => {
         if (data?.country == selectedValue) {
@@ -85,25 +93,11 @@ const fetchMoreListItems = async () => {
           setItems(filterCountry)
         }
       })
+
     } else {
       setItems(news)
     }
   }
-
-
-  // const FilteringCatagoriesData = () => {
-  //   const filterCountry = [];
-  //   if (selectcategory) {
-  //     news?.filter((data) => {
-  //       if (data?.category == selectcategory) {
-  //         filterCountry.push(data)
-  //         setItems(filterCountry)
-  //       }
-  //     })
-  //   } else {
-  //     setItems(news)
-  //   }
-  // }
 
 
   const FilteringCatagoriesData = () => {
@@ -119,32 +113,18 @@ const fetchMoreListItems = async () => {
       setItems(news);
     }
   };
-  
 
 
-
-  // const FilteringlanguageData = () => {
-  //   const filterlanguage = [];
-  //   if (langaugevalue) {
-  //     news?.filter((data) => {
-  //       if (data?.language == langaugevalue) {
-  //         filterlanguage.push(data)
-  //         setItems(filterlanguage)
-  //       }
-  //     })
-  //   } else {
-  //     setItems(news)
-  //   }
-  // }
 
   const FilteringlanguageData = () => {
     const filteredData = [];
+    console.log(filteredData, 'filteredData');
     if (langaugevalue) {
       news?.filter((data) => {
         if (data?.language == langaugevalue) {
           filteredData.push(data);
         }
-      });
+      });         
       return filteredData;
     } else {
       return news;
@@ -176,14 +156,13 @@ const fetchMoreListItems = async () => {
   }, [selectcategory])
 
 
-  // useEffect(() => {
-  //   FilteringlanguageData();
-  // }, [langaugevalue])
 
   useEffect(() => {
     const filteredData = FilteringlanguageData();
     setItems(filteredData);
-  }, [langaugevalue]);
+  },[langaugevalue]);
+
+
 
 
   useEffect(() => {
@@ -228,7 +207,9 @@ const fetchMoreListItems = async () => {
     })()
   }, []);
 
-  return (
+
+
+return (
     <>
       <InfiniteScroll
         dataLength={news.length}

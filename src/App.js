@@ -43,6 +43,7 @@ function App() {
     setLangaugeValue(event.target.value);
   }
 
+  // console.log(langaugevalue,'abc');
 
 useEffect(() => {
     const newArray = countryData?.filter((value, index, self) => {
