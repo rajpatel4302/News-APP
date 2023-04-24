@@ -6,9 +6,10 @@ import './Entertainment.css'
 import { newsApi1 } from '../api/newsApi';
 
 const apiKeys = [
-  'pub_207763b675a0e35aa6522c2e87d715d3e7c87',
-  'pub_207770bea17156c0b48e8c9e00d0092d27b2f',
+  'pub_211024f613b7f582c85276834b1b89ad79495',
+  'pub_21103fd0743299b2690c373821c4b9e36973f',
 ];
+
 
 function getRandomApiKey() {
   const randomIndex = Math.floor(Math.random() * apiKeys.length);
@@ -106,7 +107,8 @@ function Entertainment({searchQuery,selectedValue}) {
       dataLength={news.length}
       next={() => fetchMoreListItems()}
       className="infiniteScrollOverflow"
-      hasMore={nextid !== null}
+      // hasMore={nextid !== null}
+      hasMore={true}
     >
       <div className="home">
         <div className='roller'>
@@ -115,7 +117,7 @@ function Entertainment({searchQuery,selectedValue}) {
         <h1 className='headlines'>Entertainment News</h1>
         <div className="news-card-container">
           {searchData()?.map((article, index) => (
-             article.image_url && 
+            //  article.image_url && 
             <div key={index} className="news-card1">
               <Newscard article={article} index={index} />
             </div>

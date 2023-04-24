@@ -18,9 +18,6 @@ function App() {
   const [uniquelangauge,setUniqueLangauge]=useState([]);
 
 
- 
-
-
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -42,8 +39,6 @@ function App() {
   function handleChange(event) {
     setLangaugeValue(event.target.value);
   }
-
-  // console.log(langaugevalue,'abc');
 
 useEffect(() => {
     const newArray = countryData?.filter((value, index, self) => {

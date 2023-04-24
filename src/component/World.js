@@ -7,9 +7,10 @@ import { newsApi1 } from '../api/newsApi';
 import Option from './Option';
 
 const apiKeys = [
-  'pub_207763b675a0e35aa6522c2e87d715d3e7c87',
-  'pub_207770bea17156c0b48e8c9e00d0092d27b2f',
+  'pub_211024f613b7f582c85276834b1b89ad79495',
+  'pub_21103fd0743299b2690c373821c4b9e36973f',
 ];
+
 
 
 
@@ -23,27 +24,23 @@ function World({ searchQuery, selectedValue, setCountryData, setLangauge, langau
   const [uniqueCategory, setUniqueCategory] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [selectcategory, setSelectCategory] = useState('')
-  // const [isLoading, setIsLoading] = useState(false);
 
   function handleSelectChange(event) {
     setSelectCategory(event);
   }
 
-const fetchMoreListItems = async () => 
-{
-  if (!selectcategory) {
-    try {
-      const payload = {
-        apiLastKeys: apiKeys[0],
-        _id: nextid,
-      };
+
+  const fetchMoreListItems = async () => {
+      try {
+        const payload = {
+          apiLastKeys: apiKeys[0],
+          _id: nextid,
+        };
         console.log(payload, 'payload');
         const response = await newsApi1(payload);
-        if (response.status !== 200) 
-      {
+        if (response.status !== 200) {
           console.log(response.errormessage);
-        } else
-      {
+        } else {
           setNews((prevNews) => [...prevNews, ...response?.data?.results]);
           setNextid(response?.data?.nextPage);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
@@ -58,21 +55,18 @@ const fetchMoreListItems = async () =>
         const response = await newsApi1(payload);
         if (response.status !== 200) {
           console.log(response.errormessage);
-        } 
-      {
+        }
+        {
           setNews((prevNews) => [...prevNews, ...response?.data?.results]);
           setNextid(response?.data?.nextPage);
           response?.data?.results?.map((item) => setCountryData((prev) => ([...prev, ...item?.country])))
           response?.data?.results?.map((item) => setCategoryData((prev) => ([...prev, ...item?.category])))
           response?.data?.results?.map((item) => setLangauge((prev) => ([...prev, item?.language])))
-      }
+        }
     }
-  }
-};
+  };
 
 
-
-  
   useEffect(() => {
     const newArray = categoryData?.filter((value, index, self) => {
       return self.indexOf(value) == index;
@@ -81,11 +75,8 @@ const fetchMoreListItems = async () =>
   }, [categoryData])
 
 
-
-
   const FilteringData = () => {
     const filterCountry = [];
-    console.log(filterCountry, 'filterCountry');
     if (selectedValue) {
       news?.filter((data) => {
         if (data?.country == selectedValue) {
@@ -118,19 +109,17 @@ const fetchMoreListItems = async () =>
 
   const FilteringlanguageData = () => {
     const filteredData = [];
-    console.log(filteredData, 'filteredData');
     if (langaugevalue) {
       news?.filter((data) => {
         if (data?.language == langaugevalue) {
           filteredData.push(data);
         }
-      });         
+      });
       return filteredData;
     } else {
       return news;
     }
   };
-
 
 
   const searchData = () => {
@@ -153,17 +142,16 @@ const fetchMoreListItems = async () =>
 
   useEffect(() => {
     FilteringCatagoriesData()
-  }, [selectcategory])
+  }, [selectcategory,news])
 
 
 
   useEffect(() => {
     const filteredData = FilteringlanguageData();
     setItems(filteredData);
-  },[langaugevalue]);
+  }, [langaugevalue]);
 
-
-
+  console.log(items, 'items');
 
   useEffect(() => {
     (async () => {
@@ -209,13 +197,14 @@ const fetchMoreListItems = async () =>
 
 
 
-return (
+  return (
     <>
       <InfiniteScroll
         dataLength={news.length}
         next={() => fetchMoreListItems()}
         className="infiniteScrollOverflow"
-        hasMore={nextid !== null}
+        // hasMore={nextid !== null}
+        hasMore={true}
       >
         <div className="home">
           <div className='roller'>

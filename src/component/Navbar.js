@@ -24,9 +24,9 @@ function Navbar({searchQuery, handleSearchSubmit, handleSearchChange, selectedVa
       <form className="search-form" onSubmit={handleSearchSubmit}>
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search News Here...."
           value={searchQuery}
-          onChange={handleSearchChange} 
+          onChange={handleSearchChange}
         />
         <button type="submit">Search</button>
       </form>
